@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5937MNQKK5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,17 +12,19 @@
   </script>
   <title>MonkeyGG2</title>
   <meta name="description" content="Cool site for stuff" />
-  <meta name="keywords" content="games, gamez, unblocked, unblocked games, tunnel rush, run 3, run, 3, hacks, chrome dino unblocked, chrome dino, chrome dinosaur, dinosaur game, dinosaur, chrome hacks, chrome dino hacks, chrome dinosaur hacks, chrome dino game hack, unblocked game site, idle breakout, idle breakout hack, idle breakout save, idle breakout code, idle breakout save generator, idle breakout unblocked, 2048, 2048 unblocked, 2048 no ads, no ads, ads, 2048 high score, cookie clicker, cookie clicker unblocked, cookie clicker github, cookie clicker no ads, flappy bird, flappy bird no ads, flappy bird unblocked, flash games, flash, bloons, bloons tower defense, bloons td, bloons td 1, bloons td 2, bloons td 3, bloons td 4, bloons td 5, bloons td 6, online, duck life, duck life 1, duck life 2, ducklife 3, factory balls, learn to fly, learn to fly game, raft wars, the impossible quiz, this is the only level, impossible quiz, impossible quiz online, impossible quiz answers, impossible quiz question, imposible quiz, quiz, quiz answers, hextris, retrobowl, retrobowl unblocked, retrobowl online, rooftop snipers, rooftop snipers unblocked, slope, slope online, slope unblocked, slope unblocked site, slope unblocked no ads, slope unblocked google site, slope unblocked online, slope unblocked school, smart ball, tunnel rush, tunnel rush online, tunnel rush unblocked, tunnel rush unblocked site, tunnel rush unblocked no ads, tunnel rush unblocked google site, slope google site, tunnel rush google site, tunnel rush unblocked online, tunnel rush unblocked school" />
+  <meta name="keywords" content="games, gamez, unblocked, unblocked games, tunnel rush, run 3" />
   <meta name="og:image" content="favicon.png" />
+  
+  <!-- Preloading resources -->
   <link href="js/loading.js" rel="preload" as="script" />
   <link href="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" rel="preload" as="script" />
   <link href="css/loading.css" rel="preload" as="style" type="text/css" />
   <link href="js/config.js" rel="prefetch" as="script" />
-  <link href="fonts/Flexi_IBM_VGA_True_437.svg" rel="prefetch" as="font" />
-  <link href="fonts/Flexi_IBM_VGA_True_437.woff" rel="prefetch" as="font" />
-  <link href="fonts/Flexi_IBM_VGA_True_437.woff2" rel="prefetch" as="font" />
+  
+  <!-- CSS -->
   <link href="css/loading.css" rel="stylesheet" type="text/css" />
   <link href="css/style.css" rel="stylesheet" type="text/css" />
+  
   <style>
     .password-gate {
       position: fixed;
@@ -37,11 +40,19 @@
       flex-direction: column;
       gap: 20px;
     }
+    .password-gate h2 {
+      color: white;
+      font-family: Arial, sans-serif;
+    }
     .password-gate input {
       padding: 10px 20px;
       font-size: 18px;
       border: 2px solid #ccc;
       border-radius: 5px;
+      outline: none;
+    }
+    .password-gate input:focus {
+      border-color: #4CAF50;
     }
     .password-gate button {
       padding: 10px 30px;
@@ -51,9 +62,14 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     .password-gate button:hover {
       background: #45a049;
+    }
+    .error-message {
+      color: #ff4444;
+      display: none;
     }
   </style>
 </head>
@@ -61,7 +77,9 @@
 <body>
   <!-- Password Gate -->
   <div class="password-gate" id="passwordGate">
-    <input type="text" id="answerInput" placeholder="Enter the answer">
+    <h2>Enter Access Code</h2>
+    <input type="text" id="answerInput" placeholder="Enter the answer" />
+    <p class="error-message" id="errorMsg">Incorrect answer!</p>
     <button onclick="checkAnswer()">Submit</button>
   </div>
 
@@ -69,27 +87,78 @@
     <p id="noscript-text">This site requires you to be able to run JavaScript.</p>
   </noscript>
   
-  <!-- ... rest of your MonkeyGG2 HTML ... -->
+  <div class="loading">
+    <div>
+      <div class="loading-tip"></div>
+      <div class="loading-infinity">
+        <br />
+        <svg class="infinity" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#5ebd3e" />
+              <stop offset="33%" stop-color="#ffb900" />
+              <stop offset="67%" stop-color="#f78200" />
+              <stop offset="100%" stop-color="#e23838" />
+            </linearGradient>
+            <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="0%" stop-color="#e23838" />
+              <stop offset="33%" stop-color="#973999" />
+              <stop offset="67%" stop-color="#009cdf" />
+              <stop offset="100%" stop-color="#5ebd3e" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke-linecap="round" stroke-width="16">
+            <g class="track" stroke="rgba(0,0,0,0)">
+              <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
+              <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
+            </g>
+            <g stroke-dasharray="180 656">
+              <path class="worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
+              <path class="worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="loading-icon">
+      <img src="imgs/icon-256-256.png" alt="MonkeyGG2 Icon" />
+    </div>
+  </div>
+  
+  <section id="everything-else">
+    <!-- Your MonkeyGG2 content goes here -->
+    <h1 id="title">MonkeyGG2</h1>
+    <p style="color: white; text-align: center; margin-top: 50px;">Site content will be displayed here once you enter the correct answer.</p>
+  </section>
 
   <script>
     function checkAnswer() {
-      const userAnswer = document.getElementById('answerInput').value;
-      const correctAnswer = "sj.nyc"; // change this to your correct answer
+      const userAnswer = document.getElementById('answerInput').value.trim();
+      const correctAnswer = "sj.nyc";
+      const errorMsg = document.getElementById('errorMsg');
 
       if(userAnswer !== correctAnswer) {
-        window.location.href = "https://unis.org";
+        errorMsg.style.display = 'block';
+        document.getElementById('answerInput').value = '';
+        setTimeout(() => {
+          window.location.href = "https://unis.org";
+        }, 1500);
       } else {
         document.getElementById('passwordGate').style.display = 'none';
       }
     }
+
+    // Allow Enter key to submit
+    document.getElementById('answerInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkAnswer();
+      }
+    });
   </script>
   
   <script src="js/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <script src="js/loading.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.8.0/lib/p5.min.js" defer></script>
-  <script src="js/bg.js" defer></script>
   <script src="js/index.js" defer></script>
 </body>
-
 </html>
