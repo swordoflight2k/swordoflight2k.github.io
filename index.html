@@ -131,34 +131,39 @@
     <p style="color: white; text-align: center; margin-top: 50px;">Site content will be displayed here once you enter the correct answer.</p>
   </section>
 
-  <script>
-    function checkAnswer() {
-      const userAnswer = document.getElementById('answerInput').value.trim();
-      const correctAnswer = "sj.nyc";
-      const errorMsg = document.getElementById('errorMsg');
+ <script>
+  function checkAnswer() {
+    const userAnswer = document.getElementById('answerInput').value.trim();
+    const correctAnswer = "sj.nyc";
+    const errorMsg = document.getElementById('errorMsg');
 
-      if(userAnswer !== correctAnswer) {
-        errorMsg.style.display = 'block';
-        document.getElementById('answerInput').value = '';
-        setTimeout(() => {
-          window.location.href = "https://unis.org";
-        }, 1500);
-      } else {
-        document.getElementById('passwordGate').style.display = 'none';
-      }
+    if (userAnswer !== correctAnswer) {
+      errorMsg.style.display = 'block';
+      document.getElementById('answerInput').value = '';
+      setTimeout(() => {
+        window.location.href = "https://unis.org";
+      }, 1500);
+    } else {
+      // Hide password gate and loading screen
+      document.getElementById('passwordGate').style.display = 'none';
+      document.querySelector('.loading').style.display = 'none';
+      document.getElementById('everything-else').style.display = 'block';
     }
+  }
 
-    // Allow Enter key to submit
-    document.getElementById('answerInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        checkAnswer();
-      }
-    });
-  </script>
-  
-  <script src="js/config.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-  <script src="js/loading.js" defer></script>
-  <script src="js/index.js" defer></script>
-</body>
-</html>
+  // Allow Enter key to submit
+  document.getElementById('answerInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      checkAnswer();
+    }
+  });
+
+  // Initially hide site content until access granted
+  document.getElementById('everything-else').style.display = 'none';
+</script>
+
+<!-- Keep these scripts last -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/loading.js" defer></script>
+<script src="js/index.js" defer></script>
