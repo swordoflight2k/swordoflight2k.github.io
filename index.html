@@ -6,7 +6,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5937MNQKK5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() {dataLayer.push(arguments);}
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-5937MNQKK5');
   </script>
@@ -14,17 +14,17 @@
   <meta name="description" content="Cool site for stuff" />
   <meta name="keywords" content="games, gamez, unblocked, unblocked games, tunnel rush, run 3" />
   <meta name="og:image" content="favicon.png" />
-  
+
   <!-- Preloading resources -->
   <link href="js/loading.js" rel="preload" as="script" />
   <link href="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" rel="preload" as="script" />
   <link href="css/loading.css" rel="preload" as="style" type="text/css" />
   <link href="js/config.js" rel="prefetch" as="script" />
-  
+
   <!-- CSS -->
   <link href="css/loading.css" rel="stylesheet" type="text/css" />
   <link href="css/style.css" rel="stylesheet" type="text/css" />
-  
+
   <style>
     .password-gate {
       position: fixed;
@@ -86,7 +86,7 @@
   <noscript>
     <p id="noscript-text">This site requires you to be able to run JavaScript.</p>
   </noscript>
-  
+
   <div class="loading">
     <div>
       <div class="loading-tip"></div>
@@ -124,46 +124,45 @@
       <img src="imgs/icon-256-256.png" alt="MonkeyGG2 Icon" />
     </div>
   </div>
-  
-  <section id="everything-else">
+
+  <section id="everything-else" style="display:none;">
     <!-- Your MonkeyGG2 content goes here -->
     <h1 id="title">MonkeyGG2</h1>
-    <p style="color: white; text-align: center; margin-top: 50px;">Site content will be displayed here once you enter the correct answer.</p>
+    <p style="color: white; text-align: center; margin-top: 50px;">
+      Site content will be displayed here once you enter the correct answer.
+    </p>
   </section>
 
- <script>
-  function checkAnswer() {
-    const userAnswer = document.getElementById('answerInput').value.trim();
-    const correctAnswer = "sj.nyc";
-    const errorMsg = document.getElementById('errorMsg');
+  <script>
+    function checkAnswer() {
+      const userAnswer = document.getElementById('answerInput').value.trim();
+      const correctAnswer = "sj.nyc";
+      const errorMsg = document.getElementById('errorMsg');
 
-    if (userAnswer !== correctAnswer) {
-      errorMsg.style.display = 'block';
-      document.getElementById('answerInput').value = '';
-      setTimeout(() => {
-        window.location.href = "https://unis.org";
-      }, 1500);
-    } else {
-      // Hide password gate and loading screen
-      document.getElementById('passwordGate').style.display = 'none';
-      document.querySelector('.loading').style.display = 'none';
-      document.getElementById('everything-else').style.display = 'block';
+      if (userAnswer !== correctAnswer) {
+        errorMsg.style.display = 'block';
+        document.getElementById('answerInput').value = '';
+        setTimeout(() => {
+          window.location.href = "https://unis.org";
+        }, 1500);
+      } else {
+        // Hide the password gate and loading animation
+        document.getElementById('passwordGate').style.display = 'none';
+        document.querySelector('.loading').style.display = 'none';
+        // Show content after successful entry
+        document.getElementById('everything-else').style.display = 'block';
+      }
     }
-  }
 
-  // Allow Enter key to submit
-  document.getElementById('answerInput').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      checkAnswer();
-    }
-  });
+    // Allow Enter key to submit
+    document.getElementById('answerInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkAnswer();
+    });
+  </script>
 
-  // Initially hide site content until access granted
-  document.getElementById('everything-else').style.display = 'none';
-</script>
-
-<!-- Keep these scripts last -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/loading.js" defer></script>
-<script src="js/index.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/loading.js" defer></script>
+  <script src="js/index.js" defer></script>
+</body>
+</html>
