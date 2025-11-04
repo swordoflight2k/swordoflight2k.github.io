@@ -1,81 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MonkeyGG2 — Access</title>
+  <meta charset="UTF-8">
+  <title>Login</title>
   <style>
-    /* minimal, self-contained styling */
-    :root { --bg:#0f1113; --card:#17191b; --accent:#4CAF50; --text:#eaeaea; }
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text)}
-    .card{width:360px;max-width:95%;padding:24px;background:var(--card);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.6);text-align:center}
-    h1{margin:0 0 12px;font-size:20px}
-    input{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);box-sizing:border-box}
-    .row{margin-top:12px;display:flex;gap:8px}
-    button{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:white;cursor:pointer}
-    .note{margin-top:12px;font-size:13px;color:#bdbdbd}
-    .err{color:#ff6b6b;margin-top:10px;display:none}
+    body { display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; }
+    .login-box { text-align:center; }
+    input { padding:8px; font-size:16px; margin-top:10px; }
+    button { padding:8px 12px; font-size:16px; margin-left:5px; }
   </style>
 </head>
 <body>
-  <div class="card" role="main" aria-labelledby="title">
-    <h1 id="title">Enter Access Code</h1>
-
-    <input id="pw" type="text" autocomplete="off" placeholder="Access code" aria-label="Access code" />
-    <div class="row">
-      <button id="go">Submit</button>
-      <button id="cancel" type="button">Cancel</button>
-    </div>
-
-    <p class="err" id="err">Incorrect code</p>
-    <p class="note">This is a client-side gate — not secure for secrets. For friends-only fun only.</p>
+  <div class="login-box">
+    <h2>Enter Password</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Enter</button>
+    <p id="error" style="color:red;"></p>
   </div>
 
   <script>
-    // === CONFIG ===
-    const CORRECT = "sj.nyc";        // change to whatever you want
-    const TARGET  = "index.html";    // where to go on success
+    const PASSWORD = "yourpassword"; // change to your desired password
+    const TARGET = "https://swordoflight2k.github.io/"; // your GitHub Pages homepage
 
-    // === logic ===
-    const pw = document.getElementById('pw');
-    const go = document.getElementById('go');
-    const cancel = document.getElementById('cancel');
-    const err = document.getElementById('err');
-
-    function success() {
-      // set a session flag so index.html can check (optional)
-      try { sessionStorage.setItem('monkeygg2_auth','1'); } catch(e) {}
-      // go to main page
-      window.location.href = TARGET;
-    }
-
-    function fail() {
-      err.style.display = 'block';
-      pw.value = '';
-      pw.focus();
-      // optional: redirect on fail (like your original) — uncomment to enable
-      // setTimeout(()=> window.location.href = "https://unis.org", 1500);
-    }
-
-    go.addEventListener('click', () => {
-      if (pw.value.trim() === CORRECT) success(); else fail();
-    });
-
-    pw.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        go.click();
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      if(input === PASSWORD){
+        sessionStorage.setItem('monkeygg2_auth', 'true');
+        window.location.href = TARGET;
+      } else {
+        document.getElementById('error').textContent = "Wrong password!";
       }
-    });
-
-    cancel.addEventListener('click', () => {
-      // go wherever you like on cancel — example goes back to GitHub page root
-      window.location.href = "./";
-    });
-
-    // optional UX: focus input on load
-    window.addEventListener('load', () => pw.focus());
+    }
   </script>
 </body>
 </html>
