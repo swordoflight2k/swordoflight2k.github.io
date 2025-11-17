@@ -112,15 +112,30 @@
   </style>
 
   <script>
-    const CORRECT_PASSWORD = "aWxpa2V3YWZmbGVz";
+    // SHA-256 hash of the correct password
+    const CORRECT_PASSWORD_HASH = "a6802d0dd866d090ccdcdecb8f90e9c8f8cf28126454e02d932debe32b798731";
     const isAuthenticated = sessionStorage.getItem('monkeygg2_authenticated') === 'true';
     
+    // SHA-256 hashing function using Web Crypto API
+    async function hashPassword(password) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex;
+    }
+    
     if (!isAuthenticated) {
-      window.checkPasswordGate = function() {
+      window.checkPasswordGate = async function() {
         const input = document.getElementById('password-input').value;
         const error = document.getElementById('password-error');
         const box = document.getElementById('password-box');
-        if (input === CORRECT_PASSWORD) {
+        
+        // Hash the input password
+        const inputHash = await hashPassword(input);
+        
+        if (inputHash === CORRECT_PASSWORD_HASH) {
           sessionStorage.setItem('monkeygg2_authenticated', 'true');
           document.getElementById('password-gate-overlay').classList.add('hidden');
         } else {
@@ -433,23 +448,4 @@
     <iframe></iframe>
     <button id="gameButton" class="in-game-button">
       <svg class="svg-inline--fa fa-chevron-left fa-w-10" viewBox="0 0 320 512">
-        <path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"/>
-      </svg>
-      <img src="imgs/icon-256-256.png" width="36" height="36" alt="Logo" />
-    </button>
-    <button id="refresh" class="in-game-button">
-      <img src="imgs/refresh.png" width="40" height="36" alt="Logo" />
-      <svg class="svg-inline--fa fa-chevron-left fa-w-10" viewBox="0 0 320 512">
-        <path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"/>
-      </svg>
-    </button>
-  </section>
-  
-  <script src="js/config.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-  <script src="js/loading.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.8.0/lib/p5.min.js" defer></script>
-  <script src="js/bg.js" defer></script>
-  <script src="js/index.js" defer></script>
-</body>
-</html
+        <path fill="currentColor" d="M34.52 239.03L
