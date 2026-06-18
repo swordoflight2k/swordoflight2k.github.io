@@ -20,143 +20,9 @@
   <link href="fonts/Flexi_IBM_VGA_True_437.woff2" rel="prefetch" as="font" />
   <link href="css/loading.css" rel="stylesheet" type="text/css" />
   <link href="css/style.css" rel="stylesheet" type="text/css" />
-  
-  <style>
-    #password-gate-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999999;
-    }
-    #password-gate-overlay.hidden {display: none;}
-    .password-gate-box {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-    .password-gate-box h1 {
-      color: #333;
-      margin-bottom: 10px;
-      font-size: 28px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .password-gate-box p {
-      color: #666;
-      margin-bottom: 25px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .password-input-group {margin-bottom: 20px;}
-    .password-input-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #555;
-      font-weight: 500;
-      text-align: left;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .password-input-group input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 6px;
-      font-size: 16px;
-      transition: border-color 0.3s;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .password-input-group input:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    .password-unlock-btn {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .password-unlock-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-    }
-    .password-unlock-btn:active {transform: translateY(0);}
-    .password-error {
-      color: #e53e3e;
-      font-size: 14px;
-      margin-top: 10px;
-      display: none;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    @keyframes shake {
-      0%, 100% {transform: translateX(0);}
-      25% {transform: translateX(-10px);}
-      75% {transform: translateX(10px);}
-    }
-    .shake {animation: shake 0.5s;}
-  </style>
-
-  <script>
-    const CORRECT_PASSWORD = "aWxpa2V3YWZmbGVz";
-    const isAuthenticated = sessionStorage.getItem('monkeygg2_authenticated') === 'true';
-    
-    if (!isAuthenticated) {
-      window.checkPasswordGate = function() {
-        const input = document.getElementById('password-input').value;
-        const error = document.getElementById('password-error');
-        const box = document.getElementById('password-box');
-        if (input === CORRECT_PASSWORD) {
-          sessionStorage.setItem('monkeygg2_authenticated', 'true');
-          document.getElementById('password-gate-overlay').classList.add('hidden');
-        } else {
-          error.style.display = 'block';
-          document.getElementById('password-input').value = '';
-          box.classList.add('shake');
-          setTimeout(() => box.classList.remove('shake'), 500);
-        }
-      };
-      document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('password-input').addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') checkPasswordGate();
-        });
-      });
-    } else {
-      document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('password-gate-overlay').classList.add('hidden');
-      });
-    }
-  </script>
 </head>
 
 <body>
-  <div id="password-gate-overlay">
-    <div class="password-gate-box" id="password-box">
-      <h1>🔒 Protected Site</h1>
-      <p>Please enter the password to access MonkeyGG2.</p>
-      <div class="password-input-group">
-        <label for="password-input">Password</label>
-        <input type="password" id="password-input" placeholder="Enter password" autofocus>
-      </div>
-      <button class="password-unlock-btn" onclick="checkPasswordGate()">Unlock</button>
-      <div class="password-error" id="password-error">Incorrect password. Please try again.</div>
-    </div>
-  </div>
-
   <noscript>
     <p id="noscript-text">This site requires you to be able to run JavaScript.</p>
   </noscript>
@@ -452,4 +318,4 @@
   <script src="js/bg.js" defer></script>
   <script src="js/index.js" defer></script>
 </body>
-</html
+</html>
